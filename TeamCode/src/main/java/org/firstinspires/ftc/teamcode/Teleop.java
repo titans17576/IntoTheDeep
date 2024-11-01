@@ -21,30 +21,38 @@ public class Teleop extends LinearOpMode {
 
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad previousGamepad1 = new Gamepad();
+        liftFSM LiftFSM = new liftFSM(R, telemetry, currentGamepad1,previousGamepad1);
 
         driveControls driveControls = new driveControls(R, currentGamepad1,previousGamepad1);
 
         waitForStart();
+        LiftFSM.initialize();
 
         driveControls.initialize();
 
-        while(opModeIsActive()){
+        while(opModeIsActive()) {
             // Previous gamepad implementation code
             previousGamepad1.copy(currentGamepad1);
             currentGamepad1.copy(gamepad1);
+            LiftFSM.testUpdate();
 
             // Drive control update
 
             driveControls.drive();
 
 
-
-
-            if(gamepad1.left_bumper && !previousGamepad1.left_bumper){
+            if (gamepad1.dpad_left && !previousGamepad1.dpad_left) {
                 R.claw.setPosition(0);
+            } else if (gamepad1.dpad_down && !previousGamepad1.dpad_down) {
+                R.claw.setPosition(0.47);
+            } else if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
+                R.claw.setPosition(0.55);
             }
-            else if(gamepad1.right_bumper && !previousGamepad1.right_bumper){
-                R.claw.setPosition(0.8);
+
+            if (gamepad1.a && !previousGamepad1.a) {
+                R.arm.setPosition(0.2);
+            } else if (gamepad1.b && !previousGamepad1.b) {
+                R.arm.setPosition(0.5);
             }
 
 

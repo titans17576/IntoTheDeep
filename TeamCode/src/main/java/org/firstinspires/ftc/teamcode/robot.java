@@ -77,7 +77,7 @@ public class robot extends MecanumDrive {
     public DcMotorEx leftFront, leftRear, rightRear, rightFront, liftMotor;
     private List<DcMotorEx> motors;
     //public CRServo claw;
-    public Servo claw, hinge, actClaw;
+    public Servo claw, arm;
 
     private IMU imu;
     private VoltageSensor batteryVoltageSensor;
@@ -109,7 +109,7 @@ public class robot extends MecanumDrive {
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        //arm = hardwareMap.get(DcMotorEx.class, "arm");
+        arm = hardwareMap.get(Servo.class, "armServo");
         //claw = hardwareMap.get(CRServo.class, "clawServo");
         claw = hardwareMap.get(Servo.class, "clawServo");
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
@@ -118,7 +118,6 @@ public class robot extends MecanumDrive {
         leftRear.setPower(0);
         rightRear.setPower(0);
         rightFront.setPower(0);
-        //arm.setPower(0);
         //claw.setPower(0);
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -133,7 +132,7 @@ public class robot extends MecanumDrive {
         rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
