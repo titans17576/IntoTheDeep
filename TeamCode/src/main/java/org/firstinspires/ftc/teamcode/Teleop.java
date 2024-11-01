@@ -44,7 +44,7 @@ public class Teleop extends LinearOpMode {
                 R.claw.setPosition(0);
             }
             else if(gamepad1.right_bumper && !previousGamepad1.right_bumper){
-                R.claw.setPosition(1);
+                R.claw.setPosition(0.8);
             }
 
 
