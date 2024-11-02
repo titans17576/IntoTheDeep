@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+
 import static java.lang.Math.abs;
+
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -8,25 +10,25 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class clawFSM {
-    // Enum for state memory
-    public enum LiftState {
+
+
+
+    public enum ClawState{
         ZERO,
         MID,
         OPEN,
     }
 
+
     // Position variables
-    //final int position_tolerance = 0;
+
     final double zero_position = 0;
-    // int low_position = 1500;
-    //final int mid_position = 1442; // max we could reach was like 1500 ticks so idk
     final double mid_position = 0.47;
     final double open_position = 0.55;
 
     // LiftState instance variable
-    LiftState liftState = LiftState.ZERO;
+    ClawState clawState = ClawState.ZERO;
 
-    // OpMode variables
     robot R;
     Telemetry telemetry;
     Gamepad gamepad1;
@@ -45,9 +47,6 @@ public class clawFSM {
     // Method to move to a targeted position
     private void moveTo(Double position) {
         R.claw.setPosition(position);
-        //R.liftMotor.setPower(0.8);
-        //R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //R.liftMotor.setPower(0);
     }
 
     // Method to add encoders and status to telemetry
@@ -62,22 +61,18 @@ public class clawFSM {
     public void teleopUpdate() {
         telemetry.addLine("Lift Data");
 
-        switch (liftState) {
+        switch (clawState) {
             // Lift set to 0
             case ZERO:
-                // Check position and move if not at 0
-                //if (abs(R.liftMotor.getCurrentPosition() - zero_position) > position_tolerance) {
 
-                    moveTo(zero_position);
+                moveTo(zero_position);
 
-                    telemetry.addData("Claw Moved", "TRUE");
-               // } else {
-                   // telemetry.addData("Lift Moved", "FALSE");
-               // }
+                telemetry.addData("Claw Moved", "TRUE");
+
 
                 // State inputs
                 if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
-                    liftState = LiftState.MID;
+                    clawState = ClawState.MID;
                     telemetry.addData("Move Requested", "TRUE");
                 } else {
                     telemetry.addData("Move Requested", "FALSE");
@@ -90,26 +85,23 @@ public class clawFSM {
 
             // Lift set to 3/3
             case MID:
-                // Check position and move if not at high_position
-                //if (abs(R.liftMotor.getCurrentPosition() - high_position) > position_tolerance) {
-                    moveTo(mid_position);
-                    telemetry.addData("Claw Moved", "TRUE");
-                //} else {
-                    //telemetry.addData("Lift Moved", "FALSE");
-               // }
+
+                moveTo(mid_position);
+                telemetry.addData("Claw Moved", "TRUE");
+
 
                 // State inputs
                 if (gamepad1.dpad_down && !previousGamepad1.dpad_down) {
-                    liftState = LiftState.ZERO;
+                    clawState = ClawState.ZERO;
                     telemetry.addData("Move Requested", "TRUE");
                 } else {
                     telemetry.addData("Move Requested", "FALSE");
                 }
 
-                if(gamepad1.dpad_up && !previousGamepad1.dpad_up){
+                if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
                     moveTo(open_position);
                     telemetry.addData("Lift Moved", "TRUE");
-                }else{
+                } else {
                     telemetry.addData("Move Requested", "FALSE");
                 }
 
@@ -120,18 +112,16 @@ public class clawFSM {
             case OPEN:
                 moveTo(open_position);
                 telemetry.addData("Claw Moved", "TRUE");
-                if (gamepad1.dpad_down && !previousGamepad1.dpad_down){
-                    liftState = LiftState.MID;
+                if (gamepad1.dpad_down && !previousGamepad1.dpad_down) {
+                    clawState = ClawState.MID;
                     telemetry.addData("Move Requested", "TRUE");
                 } else {
                     telemetry.addData("Move Requested", "FALSE");
                 }
+                break;
 
 
         }
-
-
-
     }
     public void testUpdate() {
         updateTelemetry("Test");
@@ -154,3 +144,4 @@ public class clawFSM {
         }
     }
 }
+
