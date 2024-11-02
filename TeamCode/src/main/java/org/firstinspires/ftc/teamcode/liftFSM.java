@@ -15,7 +15,7 @@ public class liftFSM {
     }
 
     // Position variables
-    final int position_tolerance = 5;
+    final int position_tolerance = 15;
     final int zero_position = 0;
     // int low_position = 1500;
     //final int mid_position = 1442; // max we could reach was like 1500 ticks so idk
@@ -66,7 +66,9 @@ public class liftFSM {
             case ZERO:
                 // Check position and move if not at 0
                 if (abs(R.liftMotor.getCurrentPosition() - zero_position) > position_tolerance) {
+
                     moveTo(zero_position);
+
                     telemetry.addData("Lift Moved", "TRUE");
                 } else {
                     telemetry.addData("Lift Moved", "FALSE");
@@ -115,7 +117,7 @@ public class liftFSM {
         updateTelemetry("Test");
         if (gamepad1.right_bumper && !previousGamepad1.right_bumper) {
             R.liftMotor.setTargetPosition(6000);
-            R.liftMotor.setPower(0.8);
+            R.liftMotor.setPower(1);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
@@ -123,6 +125,11 @@ public class liftFSM {
             R.liftMotor.setTargetPosition(0);
             R.liftMotor.setPower(0.8);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+        if (R.liftMotor.getCurrentPosition() < 30 && R.liftMotor.getTargetPosition() != 6000){
+            R.liftMotor.setPower(0);
+            R.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
     }
 }

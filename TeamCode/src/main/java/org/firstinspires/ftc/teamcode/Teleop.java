@@ -50,7 +50,7 @@ public class Teleop extends LinearOpMode {
             }
 
             if (gamepad1.a && !previousGamepad1.a) {
-                R.arm.setPosition(0.2);
+                R.arm.setPosition(0.3);
             } else if (gamepad1.b && !previousGamepad1.b) {
                 R.arm.setPosition(0.5);
             }
