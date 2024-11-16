@@ -121,13 +121,28 @@ public class liftFSM {
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
+        if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
+            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() + 500);
+            R.liftMotor.setPower(1);
+            R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+        if (gamepad1.right_trigger >= 0.5 && previousGamepad1.right_trigger < 0.5) {
+            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() + 200);
+            R.liftMotor.setPower(1);
+            R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
         if (gamepad1.left_bumper && !previousGamepad1.left_bumper) {
             R.liftMotor.setTargetPosition(0);
             R.liftMotor.setPower(0.8);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
-        if (R.liftMotor.getCurrentPosition() < 30 && R.liftMotor.getTargetPosition() != 6000){
+        if (R.liftMotor.getCurrentPosition() < 30 && R.liftMotor.getTargetPosition() != 6000) {
+            R.liftMotor.setPower(0);
+            R.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        } else if (gamepad1.y && !previousGamepad1.y) {
             R.liftMotor.setPower(0);
             R.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }

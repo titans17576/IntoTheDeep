@@ -44,9 +44,9 @@ public class driveControls {
     }
 
     public void drive() {
-        if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
+        /*if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
             slow = (slow == regSpeed)? slowSpeed : regSpeed;
-        }
+        }*/
 
         // Drive inputs
         double drive = -gamepad1.left_stick_y;//y
