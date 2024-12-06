@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.usb.RobotArmingStateNotifier;
 import com.qualcomm.robotcore.util.Range;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 public class Teleop extends LinearOpMode {
     @Override
     public void runOpMode(){
+        IMU imu = hardwareMap.get(IMU.class, "imu");
         robot R = new robot(hardwareMap);
 
         Gamepad currentGamepad1 = new Gamepad();
@@ -41,18 +43,18 @@ public class Teleop extends LinearOpMode {
             driveControls.drive();
 
 
-            if (gamepad1.dpad_left && !previousGamepad1.dpad_left) {
-                R.claw.setPosition(0);
-            } else if (gamepad1.dpad_down && !previousGamepad1.dpad_down) {
+            if (gamepad1.a && !previousGamepad1.a) {
                 R.claw.setPosition(0.47);
-            } else if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
-                R.claw.setPosition(0.55);
+            } else if (gamepad1.b && !previousGamepad1.b) {
+                R.claw.setPosition(0.9);
             }
 
-            if (gamepad1.a && !previousGamepad1.a) {
+            if (gamepad1.dpad_left && !previousGamepad1.dpad_left) {
+                R.arm.setPosition(0.37);
+            } else if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
+                R.arm.setPosition(1);
+            } else if (gamepad1.dpad_down && !previousGamepad1.dpad_down) {
                 R.arm.setPosition(0.3);
-            } else if (gamepad1.b && !previousGamepad1.b) {
-                R.arm.setPosition(0.55);
             }
 
 
@@ -61,4 +63,3 @@ public class Teleop extends LinearOpMode {
         }
     }
 }
-;

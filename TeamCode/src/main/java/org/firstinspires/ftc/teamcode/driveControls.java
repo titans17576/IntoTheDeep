@@ -3,6 +3,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 /**
  * Drive Controls
  * <p>
@@ -20,6 +26,7 @@ public class driveControls {
 
     Gamepad gamepad1;
     Gamepad previousGamepad1;
+    IMU imu;
 
     double slow; // Slow multiplier for robot
     double regSpeed;
@@ -44,9 +51,9 @@ public class driveControls {
     }
 
     public void drive() {
-        /*if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
+        if (gamepad1.x && !previousGamepad1.x) {
             slow = (slow == regSpeed)? slowSpeed : regSpeed;
-        }*/
+        }
 
         // Drive inputs
         double drive = -gamepad1.left_stick_y;//y

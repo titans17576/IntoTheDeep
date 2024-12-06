@@ -116,19 +116,19 @@ public class liftFSM {
     public void testUpdate() {
         updateTelemetry("Test");
         if (gamepad1.right_bumper && !previousGamepad1.right_bumper) {
-            R.liftMotor.setTargetPosition(6000);
+            R.liftMotor.setTargetPosition(1400);
             R.liftMotor.setPower(1);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
         if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
-            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() + 500);
+            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() - 500);
             R.liftMotor.setPower(1);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
         if (gamepad1.right_trigger >= 0.5 && previousGamepad1.right_trigger < 0.5) {
-            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() + 200);
+            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() + 500);
             R.liftMotor.setPower(1);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -139,12 +139,15 @@ public class liftFSM {
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
-        if (R.liftMotor.getCurrentPosition() < 30 && R.liftMotor.getTargetPosition() != 6000) {
+        if (R.liftMotor.getCurrentPosition() < 20 && R.liftMotor.getTargetPosition() == 0) {
             R.liftMotor.setPower(0);
             R.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         } else if (gamepad1.y && !previousGamepad1.y) {
             R.liftMotor.setPower(0);
             R.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+        if (R.liftMotor.getTargetPosition() < 0) {
+            R.liftMotor.setTargetPosition(0);
         }
     }
 }
