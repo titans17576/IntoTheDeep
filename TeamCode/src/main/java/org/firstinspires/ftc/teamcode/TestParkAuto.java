@@ -48,15 +48,16 @@ public class TestParkAuto extends OpMode {
      * Lets assume the Robot is facing the human player and we want to score in the bucket */
 
     /** Start Pose of our robot */
-    private final Pose startPose = new Pose(9, 111, Math.toRadians(0));
+    private final Pose startPose = new Pose(9, 15, Math.toRadians(0));
 
 
     /** Park Pose for our robot, after we do all of the scoring. */
-    private final Pose parkPose = new Pose(60, 98, Math.toRadians(180));
+    private final Pose parkPose = new Pose(21, 15, Math.toRadians(0));
 
     /** Park Control Pose for our robot, this is used to manipulate the bezier curve that we will create for the parking.
      * The Robot will not go to this pose, it is used a control point for our bezier curve. */
-    private final Pose parkControlPose = new Pose(48, 30, Math.toRadians(90));
+    private final Pose parkControlPose = new Pose(48, 38);
+    private final Pose parkControlPose2 = new Pose(48, 15);
 
     /* These are our Paths and PathChains that we will define in buildPaths() */
     private Path park;
@@ -89,7 +90,7 @@ public class TestParkAuto extends OpMode {
 
 
         /* This is our park path. We are using a BezierCurve with 3 points, which is a curved line that is curved based off of the control point */
-        park = new Path(new BezierCurve(new Point(startPose), /* Control Point */ new Point(parkControlPose), new Point(parkPose)));
+        park = new Path(new BezierCurve(new Point(startPose), /* Control Point */ /*new Point(parkControlPose), new Point(parkControlPose2),*/ new Point(parkPose)));
         park.setLinearHeadingInterpolation(startPose.getHeading(), parkPose.getHeading());
     }
 
