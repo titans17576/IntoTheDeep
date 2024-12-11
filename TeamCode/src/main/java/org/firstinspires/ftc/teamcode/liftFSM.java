@@ -148,6 +148,8 @@ public class liftFSM {
         }
         if (R.liftMotor.getTargetPosition() < 0) {
             R.liftMotor.setTargetPosition(0);
+        } else if (R.liftMotor.getTargetPosition() > 3800) {
+            R.liftMotor.setTargetPosition(3800);
         }
     }
 }

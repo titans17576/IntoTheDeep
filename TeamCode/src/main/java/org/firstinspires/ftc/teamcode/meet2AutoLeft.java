@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
-        import com.acmerobotics.roadrunner.geometry.Pose2d;
-        import com.acmerobotics.roadrunner.trajectory.Trajectory;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.Gamepad;
-        import org.firstinspires.ftc.teamcode.liftFSM;
-        import org.firstinspires.ftc.teamcode.robot;
-        import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
-        import java.util.concurrent.atomic.AtomicReference;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name="meet1Auto")
-public class meet1Auto extends LinearOpMode {
+@Autonomous(name="meet2AutoLeft")
+public class meet2AutoLeft extends LinearOpMode {
 
 
     @Override
@@ -21,13 +19,15 @@ public class meet1Auto extends LinearOpMode {
         robot R = new robot(hardwareMap);
 
 
-        Gamepad currentGamepad1 = new Gamepad();
-        Gamepad previousGamepad1 = new Gamepad();
-
         R.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         R.leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         R.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         R.rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        R.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        R.leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        R.rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        R.rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //liftFSM LiftFSM = new liftFSM(R, telemetry, currentGamepad1, previousGamepad1);
 
@@ -38,12 +38,12 @@ public class meet1Auto extends LinearOpMode {
                 .build();
 
         Trajectory g = R.trajectoryBuilder(new Pose2d())
-                .strafeRight(46)
+                .strafeLeft(3)
                 .build();
 
 
         TrajectorySequence path1 = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
-                .forward(36.0)
+                .back(1)
                 .build();
 
 
@@ -51,6 +51,7 @@ public class meet1Auto extends LinearOpMode {
 
 
         R.followTrajectorySequence(path1);
+        //R.followTrajectory(g);
 
 
     }
