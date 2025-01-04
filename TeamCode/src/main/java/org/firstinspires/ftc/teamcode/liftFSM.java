@@ -116,13 +116,14 @@ public class liftFSM {
     public void testUpdate() {
         updateTelemetry("Test");
         if (gamepad1.right_bumper && !previousGamepad1.right_bumper) {
-            R.liftMotor.setTargetPosition(1400);
+            R.liftMotor.setTargetPosition(1600);
             R.liftMotor.setPower(1);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            R.arm.setPosition(1);
 
         }
         if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
-            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() - 200);
+            R.liftMotor.setTargetPosition(R.liftMotor.getTargetPosition() - 400);
             R.liftMotor.setPower(1);
             R.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 

@@ -77,7 +77,7 @@ public class robot extends MecanumDrive {
     public DcMotorEx leftFront, leftRear, rightRear, rightFront, liftMotor;
     private List<DcMotorEx> motors;
     //public CRServo claw;
-    public Servo claw, arm;
+    public Servo claw, arm, extendo, intakeWrist, intakeClaw;
 
     private IMU imu;
     private VoltageSensor batteryVoltageSensor;
@@ -112,6 +112,9 @@ public class robot extends MecanumDrive {
         arm = hardwareMap.get(Servo.class, "armServo");
         //claw = hardwareMap.get(CRServo.class, "clawServo");
         claw = hardwareMap.get(Servo.class, "clawServo");
+        extendo = hardwareMap.get(Servo.class, "extendoServo");
+        intakeWrist = hardwareMap.get(Servo.class, "intakeWristServo");
+        intakeClaw = hardwareMap.get(Servo.class, "intakeClawServo");
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
 
         leftFront.setPower(0);
