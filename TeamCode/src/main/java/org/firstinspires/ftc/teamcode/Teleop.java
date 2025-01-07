@@ -48,9 +48,9 @@ public class Teleop extends LinearOpMode {
 
 
             if (gamepad1.a && !previousGamepad1.a) {
-                R.claw.setPosition(0.6);
+                R.claw.setPosition(0.2);
             } else if (gamepad1.b && !previousGamepad1.b) {
-                R.claw.setPosition(0.9);
+                R.claw.setPosition(0.41);
             }
 
             if (gamepad1.dpad_left && !previousGamepad1.dpad_left) {
